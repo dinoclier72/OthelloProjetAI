@@ -99,7 +99,7 @@ class CustomDataset(Dataset):
         #read all file name from train/dev/test.txt files
         with open(self.filelist) as f:
             list_files = [line.rstrip() for line in f]
-        self.game_files_name=list_files#[s + ".h5" for s in list_files]       
+        self.game_files_name=list_files[0:1000]#[s + ".h5" for s in list_files]       
     
         #creat a list of samples as SampleManager objcets
         self.samples=np.empty(len(self.game_files_name)*30, dtype=object)
@@ -205,7 +205,7 @@ devSet = DataLoader(ds_dev, batch_size=dataset_conf['batch_size'])
 conf={}
 conf["board_size"]=BOARD_SIZE
 conf["path_save"]="save_models"
-conf['epoch']=200
+conf['epoch']= 1 #200
 conf["earlyStopping"]=20
 conf["len_inpout_seq"]=len_samples
 conf["LSTM_conf"]={}

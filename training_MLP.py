@@ -220,16 +220,16 @@ def count_parameters(model):
 
 n = count_parameters(model)
 print("Number of parameters: %s" % n)
-"""
+
 best_epoch=model.train_all(trainSet,
                        devSet,
                        conf['epoch'],
                        device, opt)
-"""
+
 
 # model = torch.load(conf["path_save"] + '/model_2.pt')
-model.eval()
-train_clas_rep=model.evalulate(trainSet, device)
-acc_train=train_clas_rep["weighted avg"]["recall"]
-print(f"Accuracy Train:{round(100*acc_train,2)}%")
-model.save('dummy/dummyModel.pt')
+# model.eval()
+# train_clas_rep=model.evalulate(trainSet, device)
+# acc_train=train_clas_rep["weighted avg"]["recall"]
+# print(f"Accuracy Train:{round(100*acc_train,2)}%")
+# torch.save(model,'dummy/dummyModel.pt')
