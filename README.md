@@ -18,4 +18,4 @@ Or
 	pip install scikit-learn pandas tabulate matplotlib h5py scipy tqdm torch torchvision
 	
 link to all the dataset:
-	https://umtice.univ-lemans.fr/mod/resource/view.php?id=453877
+	https://umtice.univ-lemans.fr/pluginfile.php/722993/mod_resource/content/2/dataset.zip
