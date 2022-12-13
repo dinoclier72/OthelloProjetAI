@@ -40,7 +40,7 @@ class MLP(nn.Module):
         self.lin1 = nn.Linear(self.board_size*self.board_size, 128)
         self.lin2 = nn.Linear(128, 128)
         self.lin3 = nn.Linear(128, self.board_size*self.board_size)
-        self.dropout = nn.Dropout(p=0.1)
+        self.dropout = nn.Dropout(p=0.1) #peut être utilisé après les couches comme activation function
         
 
     def forward(self, seq):

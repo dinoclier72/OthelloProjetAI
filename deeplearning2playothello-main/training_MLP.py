@@ -100,7 +100,7 @@ class CustomDataset(Dataset):
         #read all file name from train/dev/test.txt files
         with open(self.filelist) as f:
             list_files = [line.rstrip() for line in f]
-        self.game_files_name=list_files[0:200]#[s + ".h5" for s in list_files]       
+        self.game_files_name=list_files[0:500]#[s + ".h5" for s in list_files]       
     
         #creat a list of samples as SampleManager objcets
         self.samples=np.empty(len(self.game_files_name)*30, dtype=object)
@@ -206,19 +206,22 @@ devSet = DataLoader(ds_dev, batch_size=dataset_conf['batch_size'])
 conf={}
 conf["board_size"]=BOARD_SIZE
 conf["path_save"]="save_models"
-conf['epoch']=1 #200
+conf['epoch']=3 #200
 conf["earlyStopping"]=20
 conf["len_inpout_seq"]=len_samples
 conf["LSTM_conf"]={}
 conf["LSTM_conf"]["hidden_dim"]=128
 
 model = MLP(conf).to(device)
-opt = torch.optim.Adam(model.parameters(), lr=0.001)
+opt = torch.optim.Adam(model.parameters(), lr=0.0001)
+#opt = torch.optim.SGD(model.parameters(),lr = 0.00001)
 
 def count_parameters(model):
     return sum(p.numel() for p in model.parameters() if p.requires_grad)
 
 print(model)
+print(conf)
+print(opt)
 n = count_parameters(model)
 print("Number of parameters: %s" % n)
 

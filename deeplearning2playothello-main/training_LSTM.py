@@ -205,14 +205,14 @@ devSet = DataLoader(ds_dev, batch_size=dataset_conf['batch_size'])
 conf={}
 conf["board_size"]=BOARD_SIZE
 conf["path_save"]="save_models"
-conf['epoch']= 1 #200
+conf['epoch']= 3 #200
 conf["earlyStopping"]=20
 conf["len_inpout_seq"]=len_samples
 conf["LSTM_conf"]={}
 conf["LSTM_conf"]["hidden_dim"]=128
 
 model = LSTMs(conf).to(device)
-opt = torch.optim.Adam(model.parameters(), lr=0.005)
+opt = torch.optim.Adam(model.parameters(), lr=0.005)#sgd
 
 def count_parameters(model):
     return sum(p.numel() for p in model.parameters() if p.requires_grad)
