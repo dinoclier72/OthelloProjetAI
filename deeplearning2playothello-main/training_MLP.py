@@ -100,7 +100,7 @@ class CustomDataset(Dataset):
         #read all file name from train/dev/test.txt files
         with open(self.filelist) as f:
             list_files = [line.rstrip() for line in f]
-        self.game_files_name=list_files[0:1000]#[s + ".h5" for s in list_files]       
+        self.game_files_name=list_files[0:200]#[s + ".h5" for s in list_files]       
     
         #creat a list of samples as SampleManager objcets
         self.samples=np.empty(len(self.game_files_name)*30, dtype=object)
@@ -218,6 +218,7 @@ opt = torch.optim.Adam(model.parameters(), lr=0.001)
 def count_parameters(model):
     return sum(p.numel() for p in model.parameters() if p.requires_grad)
 
+print(model)
 n = count_parameters(model)
 print("Number of parameters: %s" % n)
 
