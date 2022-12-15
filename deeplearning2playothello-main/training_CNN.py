@@ -15,7 +15,7 @@ import h5py
 import copy
 
 from utile import has_tile_to_flip
-from networks_191136 import MLP,LSTMs
+from networks_191136 import MLP,LSTMs,CNN
 
 BOARD_SIZE=8
 MOVE_DIRS = [(-1, -1), (-1, 0), (-1, +1),
@@ -24,6 +24,7 @@ MOVE_DIRS = [(-1, -1), (-1, 0), (-1, +1),
 
 
 class SampleManager():
+    
     def __init__(self,
                  game_name,
                  file_dir,
@@ -206,6 +207,7 @@ class CustomDataset(Dataset):
 
 
 
+
 def my_collate(batch):
     batch_size = len(batch)
     sample_batch = [torch.from_numpy(item[0]).float() for item in batch]
@@ -224,7 +226,7 @@ else:
     
 print('Running on ' + str(device))
 
-len_samples=10
+len_samples=1
 
 dataset_conf={}  
 # self.filelist : a list of all games for train/dev/test
@@ -232,7 +234,7 @@ dataset_conf["filelist"]="train.txt"
 #len_samples is 1 for one2one but it can be more than 1 for seq2one modeling
 dataset_conf["len_samples"]=len_samples
 dataset_conf["path_dataset"]="../dataset/"
-dataset_conf['batch_size']=1000
+dataset_conf['batch_size']=500
 
 print("Training Dataste ... ")
 ds_train = CustomDataset(dataset_conf,True)
@@ -253,14 +255,15 @@ devSet = DataLoader(ds_dev, batch_size=dataset_conf['batch_size'])
 conf={}
 conf["board_size"]=BOARD_SIZE
 conf["path_save"]="save_models"
-conf['epoch']= 3 #200
+conf['epoch']= 50 #200
 conf["earlyStopping"]=20
 conf["len_inpout_seq"]=len_samples
 conf["LSTM_conf"]={}
 conf["LSTM_conf"]["hidden_dim"]=128
 
-model = LSTMs(conf).to(device)
-opt = torch.optim.Adam(model.parameters(), lr=0.005)#sgd
+model = CNN(conf).to(device)
+opt = torch.optim.Adam(model.parameters(), lr=0.0001)
+#opt = torch.optim.SGD(model.parameters(),lr = 0.00001)
 
 def count_parameters(model):
     return sum(p.numel() for p in model.parameters() if p.requires_grad)
@@ -276,9 +279,10 @@ best_epoch=model.train_all(trainSet,
                        conf['epoch'],
                        device, opt)
 
+
 # model = torch.load(conf["path_save"] + '/model_2.pt')
 # model.eval()
 # train_clas_rep=model.evalulate(trainSet, device)
 # acc_train=train_clas_rep["weighted avg"]["recall"]
 # print(f"Accuracy Train:{round(100*acc_train,2)}%")
-
+# torch.save(model,'dummy/dummyModel.pt')
