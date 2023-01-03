@@ -275,44 +275,83 @@ class CNN(nn.Module):
     def __init__(self, conf):
         super(CNN, self).__init__()
         self.board_size=conf["board_size"]
-        self.path_save=conf["path_save"]+"_MLP/"
+        self.path_save=conf["path_save"]+"_CNN/"
         self.earlyStopping=conf["earlyStopping"]
         self.len_inpout_seq=conf["len_inpout_seq"]
 
-        self.conv_layer1 = torch.nn.Conv2d(in_channels=1, out_channels=8, kernel_size=(2,2))
-        self.max_pool1 = torch.nn.MaxPool2d(kernel_size = (2,2), stride = 1)
+        self.conv_layer1 = torch.nn.Conv2d(in_channels= 1, out_channels= 8, kernel_size= (3,3), stride= 1,padding = 2)
+        self.batchR1 = torch.nn.BatchNorm2d(8)
+        self.conv_layer2 = torch.nn.Conv2d(in_channels= 8, out_channels= 8, kernel_size= (3,3), stride= 1,padding = 2)
+        self.batchR2 = torch.nn.BatchNorm2d(8)
+        self.conv_layer3 = torch.nn.Conv2d(in_channels= 8, out_channels= 16, kernel_size= (3,3), stride= 1,padding = 2)
+        self.batchR3 = torch.nn.BatchNorm2d(16)
+        self.conv_layer4 = torch.nn.Conv2d(in_channels= 16, out_channels= 32, kernel_size= (3,3), stride= 1,padding = 2)
+        self.batchR4 = torch.nn.BatchNorm2d(32)
+        self.conv_layer5 = torch.nn.Conv2d(in_channels= 32, out_channels= 16, kernel_size= (3,3), stride= 1,padding = 2)
+        self.batchR5 = torch.nn.BatchNorm2d(16)
+        self.conv_layer6 = torch.nn.Conv2d(in_channels= 16, out_channels= 16, kernel_size= (3,3), stride= 1,padding = 2);
+        self.batchR6 = torch.nn.BatchNorm2d(16)
+        # self.conv_layer7 = torch.nn.Conv2d(in_channels= 32, out_channels= 32, kernel_size= (3,3), stride= 1,padding = 2);
+        # self.conv_layer8 = torch.nn.Conv2d(in_channels= 32, out_channels= 32, kernel_size= (3,3), stride= 1,padding = 2);
+        self.fc1 = torch.nn.Linear(6400,128)
+        self.fc2 = torch.nn.Linear(128,self.board_size*self.board_size)
+
+        self.Relu = torch.nn.ReLU()
+
+        # self.conv_layer1 = torch.nn.Conv2d(in_channels=1, out_channels=8, kernel_size=(2,2))
+        # self.max_pool1 = torch.nn.MaxPool2d(kernel_size = (2,2), stride = 1)
         
-        self.conv_layer2 = torch.nn.Conv2d(in_channels=8, out_channels=8,  kernel_size =(2,2))
-        self.max_pool2 = torch.nn.MaxPool2d(kernel_size = (2,2), stride = 1)
+        # self.conv_layer2 = torch.nn.Conv2d(in_channels=8, out_channels=8,  kernel_size =(2,2))
+        # self.max_pool2 = torch.nn.MaxPool2d(kernel_size = (2,2), stride = 1)
         
-        self.conv_layer3 = torch.nn.Conv2d(in_channels=8, out_channels=16,  kernel_size= (2,2))
-        self.max_pool3 = torch.nn.MaxPool2d(kernel_size = (2,2), stride = 1)
+        # self.conv_layer3 = torch.nn.Conv2d(in_channels=8, out_channels=16,  kernel_size= (2,2))
+        # self.max_pool3 = torch.nn.MaxPool2d(kernel_size = (2,2), stride = 1)
         
-        self.relu1 = torch.nn.ReLU()
-        self.fc1 = torch.nn.Linear(128, self.board_size*self.board_size)
+        # self.relu1 = torch.nn.ReLU()
+        # self.fc1 = torch.nn.Linear(128, self.board_size*self.board_size)
     
     # Progresses data across layers    
     def forward(self, x):
-        print(x.shape)
         out = self.conv_layer1(x)
-#         print("after conv_layer1",out.shape)
-        out = self.max_pool1(out)
-#         print("after max_pool1",out.shape)
+        out = self.batchR1(out)
+        out = self.Relu(out)
         out = self.conv_layer2(out)
-#         print("after conv_layer2",out.shape)
-        out = self.max_pool2(out)
-#         print("after max_pool2",out.shape)
-        #out = self.conv_layer3(out)
-#         print("after conv_layer3",out.shape)
-        #out = self.max_pool3(out)
-#         print("after max_pool3",out.shape)
-        
-        out = out.reshape(out.size(0), -1)
-#         print("after reshape",out.shape)
-        out = self.relu1(out)
-#         print("after relu1",out.shape)
+        out = self.batchR2(out)
+        out = self.Relu(out)
+        out = self.conv_layer3(out)
+        out = self.batchR3(out)
+        out = self.Relu(out)
+        out = self.conv_layer4(out)
+        out = self.batchR4(out)
+        out = self.Relu(out)
+        out = self.conv_layer5(out)
+        out = self.batchR5(out)
+        out = self.Relu(out)
+        out = self.conv_layer6(out)
+        out = self.batchR6(out)
+        out = self.Relu(out)
+        # out = self.conv_layer7(out)
+        # out = self.conv_layer8(out)
+        out = out.reshape(out.size(0),-1)
         out = self.fc1(out)
-#         print("after fc1",out.shape)
+        out = self.fc2(out)
+#         out = self.max_pool1(out)
+# #         print("after max_pool1",out.shape)
+#         out = self.conv_layer2(out)
+# #         print("after conv_layer2",out.shape)
+#         out = self.max_pool2(out)
+# #         print("after max_pool2",out.shape)
+#         #out = self.conv_layer3(out)
+# #         print("after conv_layer3",out.shape)
+#         #out = self.max_pool3(out)
+# #         print("after max_pool3",out.shape)
+        
+#         out = out.reshape(out.size(0), -1)
+# #         print("after reshape",out.shape)
+#         out = self.relu1(out)
+# #         print("after relu1",out.shape)
+#         out = self.fc1(out)
+# #         print("after fc1",out.shape)
         return F.softmax(out,dim = -1)
     
     def train_all(self, train, dev, num_epoch, device, optimizer):

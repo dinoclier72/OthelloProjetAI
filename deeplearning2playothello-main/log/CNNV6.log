@@ -1,0 +1,36 @@
+Running on cpu
+Training Dataste ... 
+Number of samples : 180030
+Development Dataste ... 
+Number of samples : 30000
+CNN(
+  (conv_layer1): Conv2d(1, 8, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+  (batchR1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (conv_layer2): Conv2d(8, 8, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+  (batchR2): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (conv_layer3): Conv2d(8, 16, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+  (batchR3): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (conv_layer4): Conv2d(16, 32, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+  (batchR4): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (conv_layer5): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+  (batchR5): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (conv_layer6): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+  (batchR6): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fc1): Linear(in_features=6400, out_features=128, bias=True)
+  (fc2): Linear(in_features=128, out_features=64, bias=True)
+  (Relu): ReLU()
+)
+{'board_size': 8, 'path_save': 'save_models', 'epoch': 200, 'earlyStopping': 20, 'len_inpout_seq': 1, 'LSTM_conf': {'hidden_dim': 128}}
+Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    eps: 1e-08
+    lr: 0.01
+    maximize: False
+    weight_decay: 0
+)
+Number of parameters: 841192
+epoch : 1/200 - loss = 4.164294016988654
+Accuracy Train:2.1%, Dev:2.08% ; Time:99 (last_train:73, last_pred:26)
+*************** The best score on DEV 1 :2.08%

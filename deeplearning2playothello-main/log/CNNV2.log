@@ -1,0 +1,47 @@
+Running on cpu
+Training Dataste ... 
+Number of samples : 180030
+Development Dataste ... 
+Number of samples : 30000
+CNN(
+  (conv_layer1): Conv2d(1, 64, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+  (conv_layer2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+  (conv_layer3): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+  (fc1): Linear(in_features=25088, out_features=128, bias=True)
+  (fc2): Linear(in_features=128, out_features=64, bias=True)
+)
+{'board_size': 8, 'path_save': 'save_models', 'epoch': 10, 'earlyStopping': 20, 'len_inpout_seq': 1, 'LSTM_conf': {'hidden_dim': 128}}
+Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    eps: 1e-08
+    lr: 0.001
+    maximize: False
+    weight_decay: 0
+)
+Number of parameters: 3331072
+epoch : 1/10 - loss = 4.113000798423535
+Accuracy Train:6.54%, Dev:6.36% ; Time:184 (last_train:137, last_pred:47)
+*************** The best score on DEV 1 :6.36%
+epoch : 2/10 - loss = 4.128592917793675
+Accuracy Train:5.31%, Dev:5.09% ; Time:367 (last_train:137, last_pred:45)
+*************** The best score on DEV 1 :6.36%
+epoch : 3/10 - loss = 4.134555021481501
+Accuracy Train:4.62%, Dev:4.55% ; Time:538 (last_train:125, last_pred:47)
+*************** The best score on DEV 1 :6.36%
+epoch : 4/10 - loss = 4.144661777897885
+Accuracy Train:3.37%, Dev:3.27% ; Time:723 (last_train:138, last_pred:47)
+*************** The best score on DEV 1 :6.36%
+epoch : 5/10 - loss = 4.165242908403814
+Accuracy Train:1.42%, Dev:1.52% ; Time:901 (last_train:130, last_pred:48)
+*************** The best score on DEV 1 :6.36%
+epoch : 6/10 - loss = 4.166875062556809
+Accuracy Train:2.68%, Dev:2.54% ; Time:1074 (last_train:128, last_pred:44)
+*************** The best score on DEV 1 :6.36%
+epoch : 7/10 - loss = 4.15841444047204
+Accuracy Train:2.7%, Dev:2.56% ; Time:1252 (last_train:129, last_pred:48)
+*************** The best score on DEV 1 :6.36%
+epoch : 8/10 - loss = 4.159266555078142
+Accuracy Train:1.45%, Dev:1.5% ; Time:1434 (last_train:133, last_pred:48)
+*************** The best score on DEV 1 :6.36%
