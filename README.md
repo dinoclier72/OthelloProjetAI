@@ -16,6 +16,10 @@ To prepare all dependencies, it is needed to install all packages in requirement
 	pip install -r requirements.txt
 Or
 	pip install scikit-learn pandas tabulate matplotlib h5py scipy tqdm torch torchvision
+source of said files:
+	https://git-lium.univ-lemans.fr/mshamsi/deeplearning2playothello
 	
-link to all the dataset:
+link to all the dataset used:
 	https://umtice.univ-lemans.fr/pluginfile.php/722993/mod_resource/content/2/dataset.zip
+or the othello dataser from kaggle (if not available):
+	https://www.kaggle.com/datasets/andrefpoliveira/othello-games
